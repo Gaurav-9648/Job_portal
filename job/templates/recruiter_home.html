@@ -1,0 +1,101 @@
+{{% load static %}
+
+{% block body %}
+
+{% include 'recruiter_navigation.html' %}
+
+<marquee style="font-family: 'Monotype Corsiva'; font-size:25px;color:#1ecdcd; background-color:black; font-weight:bold; margin-top:0.5%">
+    Profile Updated
+</marquee>
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div class ="col-sm-8">
+
+        </div>
+    </div>
+</div>
+<form class="mt-5" name="signup" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+   <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>First Name</b></label>
+            <input type="text" class="form-control" name="fname" value="{{recruiter.user.first_name}}">
+        </div>
+        <div class="form-group col md-6">
+            <label><b>Last Name</b></label>
+            <input type="text" class="form-control" name="lname" value="{{recruiter.user.last_name}}">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Contact Number</b></label>
+            <input type="tel" class="form-control" name="contact" value="{{recruiter.mobile}}">
+        </div>
+
+        <div class="form-group col md-6">
+            <label><b>Company</b></label>
+            <input type="text" class="form-control" name="cmp" value="{{recruiter.company}}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-12">
+            <label><b>Email ID</b></label>
+            <input type="tel" class="form-control" name="contact" value="{{recruiter.user.username}}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Gender </b></label><br>
+            {% if recruiter.gender == Male %}
+            <div style="border:1px solid lightgrey;padding:6px;border-radius:6px">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="gender" class="custom-control-input" value="{{recruiter.gender}}" >
+                    <label class="custom-control-label" for="customRadioInline1">Male</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="gender" class="custom-control-input" value="{{recruiter.gender}}">
+                    <label class="custom-control-label" for="customRadioInline2">Female</label>
+                </div>
+            </div>
+            {% else %}
+            <div style="border:1px solid lightgrey;padding:6px;border-radius:6px">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="gender" class="custom-control-input" value="{{recruiter.gender}}" >
+                    <label class="custom-control-label" for="customRadioInline1">Male</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="gender" class="custom-control-input" value="{{recruiter.gender}}">
+                    <label class="custom-control-label" for="customRadioInline2">Female</label>
+                </div>
+            </div>
+            {% endif %}
+            </div>
+        <div class="form-group col md-6">
+            <label><b>Image </b></label>
+            <input type="file" class="form-control" name="image" required>
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary" style="margin-top:2%;color:#1ecdcd;background-color:black; font-weight:bold; width:200px">
+
+</form>
+
+{% include 'footer.html' %}
+
+{% ifequal error "no" %}
+<script>
+    alert("Profile Updated Successful");
+    window.location = ('{% url 'recruiter_home' %}')
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Something went Worng,Try again...");
+</script>
+{% endifequal %}
+
+{% endblock %}

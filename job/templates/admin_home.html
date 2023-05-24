@@ -1,0 +1,38 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'admin_navigation.html' %}
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.6.3/css/all.css">
+
+<style>
+    .div:hover{
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.3);
+    transform:translateY(-20px);
+    }
+</style>
+
+<marquee style="font-family: 'Monotype Corsiva'; font-size:25px;color:#1ecdcd; background-color:black; font-weight:bold; margin-top:0.5%">
+    Admin Home
+</marquee>
+<hr>
+
+<div class="container mt-5">
+    <br><br>
+    <div class="row mt-5">
+        <div class="col-sm-6 div ">
+            <h4 class="text-center"><i class="fas fa-user"></i> Total Recruiter</h4>
+            <p class="text-center">{{rcount}}</p>
+        </div>
+        <div class="col-sm-6 div ">
+            <h4 class="text-center"><i class="fas fa-user"></i> Total User</h4>
+            <p class="text-center">{{scount}}</p>
+        </div>
+    </div>
+</div>
+{% csrf_token %}
+{% include 'footer.html' %}
+
+{% endblock %}

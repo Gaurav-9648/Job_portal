@@ -1,0 +1,53 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'user_navigation.html' %}
+<style>
+    tr{text-align:center}
+</style>
+
+<marquee style="font-family: 'Monotype Corsiva'; font-size:25px;color:#1ecdcd; background-color:black; font-weight:bold; margin-top:0.5%">
+    Job details
+</marquee>
+<hr>
+<div class ="container shadow-lg py-2 mt-2">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{{job.title}}</h2>
+            <p style="font-weight:700;">{{job.recruiter.company}}<em><a href="{% url 'latest_jobs' %}"> (View All Jobs) </a></em></p>
+            <a href="#" class="mr-2"><i class="fa fa-map-marker mr-2"></i>{{job.location}}</a>
+            <a> <i class="fa fa-calendar mr-2"></i>{{job.creationdate}}</a>
+            <br>
+            <strong><i class="fa fa-money mr-2 mt-2"></i><i class="fa fa-inr mr-1 mt-2"></i>{{job.salary}}</strong>
+        <div class="mt-4">
+             <a href="{% url 'applyforjob' job.id %}"class="btn btn-danger" style="width:180px; height:40px; font-size:19px;font-weight:bold;mt-2;">Apply For Job</a>
+        </div>
+        </div>
+        <div class="col-md-4">
+            <img src="{{job.image.url}}" style="width:300px;height:200px">
+        </div>
+
+    </div>
+    <div class="mt-4">
+        <h4>Skills</h4>
+        <p>{{job.skills}}</p>
+
+        <h4>Experience</h4>
+        <p>{{job.experience}}</p>
+
+        <h4>Start Date</h4>
+        <p>{{job.start_date}}</p>
+
+        <h4>End Date</h4>
+        <p>{{job.end_date}}</p>
+
+        <h4>Overview</h4>
+        <p>{{job.description}}</p>
+    </div>
+
+</div>
+{% csrf_token %}
+
+
+{% endblock %}

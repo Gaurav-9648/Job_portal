@@ -1,0 +1,88 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'recruiter_navigation.html' %}
+<marquee style="font-family: 'Monotype Corsiva'; font-size:25px;color:#1ecdcd; background-color:black; font-weight:bold; margin-top:0.5%">
+   Edit Job List
+</marquee>
+<hr>
+
+<form class="container mt-5" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div class="form-group col md-12">
+            <label><b>Job Title :</b></label>
+            <input type="text" class="form-control" name="jobtitle" value="{{job.title}}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Start Date :</b></label><span style="color:red">[{{job.start_date}}]</span>
+            <input type="date" class="form-control" name="sdate" >
+        </div>
+         <div class="form-group col md-6">
+            <label><b>End Date :</b></label><span style="color:red">[{{job.end_date}}]</span>
+            <input type="date" class="form-control" name="endate"  >
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Salary :</b></label>
+            <input type="text" class="form-control" name="salary" value="{{job.salary}}">
+        </div>
+         <div class="form-group col md-6">
+             <img src="{{job.image.url}}" width="120" height="70"><a href="{% url 'change_companylogo' job.id %}"> Change Company logo</a>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-12">
+            <label><b>Experience(In Years) :</b></label>
+            <input type="text" class="form-control" name="experience"  value="{{job.experience}}">
+        </div>
+         <div class="form-group col md-6">
+            <label><b>Location :</b></label>
+            <input type="text" class="form-control" name="location" value="{{job.location}}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-12">
+            <label><b>Skills :</b></label>
+            <input type="text" class="form-control" name="skills"  value="{{job.skills}}">
+        </div>
+
+<!--        <div class="form-group col md-6">-->
+<!--            <label><b>Creationdate :</b></label>-->
+<!--            <input type="date" class="form-control" name="crdate" placeholder="Enter Job creationdate date" required>-->
+<!--        </div>-->
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-12">
+            <label><b>Description :</b></label>
+            <textarea class="form-control" name="description">{{job.description}}</textarea>
+        </div>
+    </div>
+
+
+    <input type="submit" value="Submit" class="btn btn-primary" style="margin-top:2%;color:#1ecdcd;background-color:black; font-weight:bold; width:200px">
+
+</form>
+
+
+
+{% ifequal error "no" %}
+<script>
+    alert("Job detail has been updated");
+    window.location = ('{% url 'edit_joblist' job.id %}')
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Something went Worng,Try again...");
+</script>
+{% endifequal %}
+
+{% endblock %}

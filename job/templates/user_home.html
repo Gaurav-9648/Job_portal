@@ -1,0 +1,113 @@
+{% load static %}
+
+{% block body %}
+
+{% include 'user_navigation.html' %}
+<marquee style="font-family: 'Monotype Corsiva'; font-size:25px;color:#1ecdcd; background-color:black; font-weight:bold; margin-top:0.5%">
+    Profile Updated User
+</marquee>
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+        <form class="mt-5" name="signup" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group col md-6">
+                    <label><b>First Name</b></label>
+                    <input type="text" class="form-control" name="fname" value="{{student.user.first_name}}">
+                </div>
+                <div class="form-group col md-6">
+                    <label><b>Last Name</b></label>
+                    <input type="text" class="form-control" name="lname" value="{{student.user.last_name}}">
+                </div>
+            </div>
+
+             <div class="form-row">
+                <div class="form-group col md-12">
+                    <label><b>Contact Number</b></label>
+                    <input type="tel" class="form-control" name="contact" value="{{student.mobile}}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col md-12">
+                    <label><b>Email ID</b></label>
+                    <input type="tel" class="form-control" name="contact" value="{{student.user.username}}" readonly>
+                </div>
+            </div>
+
+            <div class="form-row">
+<!--                <div class="form-group col md-6">-->
+<!--                    <label><b>Gender</b></label><br>-->
+<!--                    {% if student.gender == "Male" %}-->
+<!--                    <div style="border:1px solid lightgrey;padding:6px;border-radius:6px">-->
+<!--                        <div class="custom-control custom-radio custom-control-inline">-->
+<!--                            <input class="custom-control-input" id="customRadioInline1" name="gender" type="radio" value="male" checked="checked">-->
+<!--                            <label class="custom-control-label" for="customRadioInline1">Male</label>-->
+<!--                        </div>-->
+<!--                        <div class="custom-control custom-radio custom-control-inline">-->
+<!--                            <input class="custom-control-input" id="customRadioInline2" name="gender" type="radio" value="female" checked="checked">-->
+<!--                            <label class="custom-control-label" for="customRadioInline2">Female</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% else %}-->
+<!--                    <div style="border:1px solid lightgrey;padding:6px;border-radius:6px">-->
+<!--                        <div class="custom-control custom-radio custom-control-inline">-->
+<!--                            <input class="custom-control-input" id="customRadioInline1" name="gender" type="radio" value="male" checked="checked">-->
+<!--                            <label class="custom-control-label" for="customRadioInline1">Male</label>-->
+<!--                        </div>-->
+<!--                        <div class="custom-control custom-radio custom-control-inline">-->
+<!--                            <input class="custom-control-input" id="customRadioInline2" name="gender" type="radio" value="female" checked="checked">-->
+<!--                            <label class="custom-control-label" for="customRadioInline2">Female</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+                <div class="form-group col md-6">
+    <label><b>Gender</b></label><br>
+    <div style="border:1px solid lightgrey;padding:6px;border-radius:6px">
+        <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" id="customRadioInline1" name="gender" type="radio" value="male" {% if student.gender == "male" %}checked="checked"{% endif %}>
+            <label class="custom-control-label" for="customRadioInline1">Male</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" id="customRadioInline2" name="gender" type="radio" value="female" {% if student.gender == "female" %}checked="checked"{% endif %}>
+            <label class="custom-control-label" for="customRadioInline2">Female</label>
+        </div>
+    </div>
+</div>
+
+
+                <div class="form-group col md-6">
+                     <label><b>Image </b></label>
+                     <input type="file" class="form-control" name="image" accept="image/*">
+                </div>
+            </div>
+             <input type="submit" value="Submit" class="btn btn-primary" style="margin-top:2%;color:#1ecdcd;background-color:black; font-weight:bold; width:200px">
+        </form>
+        </div>
+        <div class ="col-sm-4 mt-5 text-center">
+             <img src="{{student.image.url}}" width="300px" height="300px">
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+
+{% ifequal error "no" %}
+<script>
+    alert("Profile Updated Successful");
+    window.location = ('{% url 'user_home' %}')
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Something went Worng,Try again...");
+</script>
+{% endifequal %}
+
+{% endblock %}

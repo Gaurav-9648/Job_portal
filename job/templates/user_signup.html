@@ -1,0 +1,99 @@
+{{% load static %}
+
+{% block body %}
+
+{% include 'navigation.html' %}
+<script>
+   function checkpass()
+   {
+   if(document.signup.pwd.value!=document.signup.cpwd.value)
+   {
+   alert('Password and Confirm Password does not match')
+   document.signup.cpwd.focus();
+   return false;
+   }
+   return true
+   }
+</script>
+
+<marquee style="font-family: 'Monotype Corsiva'; font-size:25px;color:#1ecdcd; background-color:black; font-weight:bold; margin-top:0.5%">
+    User Sign Up
+</marquee>
+<hr>
+
+<form class="container mt-5" onsubmit="return checkpass();" name="signup" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>First Name</b></label>
+            <input type="text" class="form-control" name="fname" placeholder="Enter First name" required>
+        </div>
+        <div class="form-group col md-6">
+            <label><b>Last Name</b></label>
+            <input type="text" class="form-control" name="lname" placeholder="Enter Last name">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Contact Number</b></label>
+            <input type="tel" class="form-control" name="contact" placeholder="Enter Contact No." required>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Gender </b></label><br>
+            <div style="border:1px solid lightgrey;padding:6px;border-radius:6px">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="gender" class="custom-control-input" value="male" >
+                    <label class="custom-control-label" for="customRadioInline1">Male</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="gender" class="custom-control-input" value="female">
+                    <label class="custom-control-label" for="customRadioInline2">Female</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col md-6">
+            <label><b>Image </b></label>
+            <input type="file" class="form-control" name="image" required="">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Email ID</b></label>
+            <input type="text" class="form-control" name="email" placeholder="Enter Email ID" required>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col md-6">
+            <label><b>Password</b></label>
+             <input type="password" class="form-control" name="pwd" placeholder="Enter Password" required>
+        </div>
+        <div class="form-group col md-6">
+            <label><b>Confirm Password </b></label>
+             <input type="password" class="form-control" name="cpwd" placeholder="Enter Confirm Password" required>
+        </div>
+
+    </div>
+    <input type="submit" value="SIGN UP" class="btn btn-primary" style="margin-top:2%;color:#1ecdcd;background-color:black; font-weight:bold; width:200px">
+
+</form>
+
+{% include 'footer.html' %}
+
+{% ifequal error "no" %}
+<script>
+    alert("Signup Successful");
+    window.location = ('{% url 'user_login' %}')
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Something went Wrong ,Try again...");
+</script>
+{% endifequal %}
+
+{% endblock %}
